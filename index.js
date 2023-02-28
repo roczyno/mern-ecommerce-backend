@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const AuthRoute = require("./routes/auth.route");
+
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
@@ -12,6 +14,10 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
+
+app.use(express.json());
+
+app.use("/api/auth", AuthRoute);
 
 app.listen(5000, () => {
   console.log("server running....");
